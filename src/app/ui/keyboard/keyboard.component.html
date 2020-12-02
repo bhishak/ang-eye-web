@@ -1,0 +1,14 @@
+<div id="container">
+  <textarea id="write" rows="6" cols="10"></textarea>
+  <ul id="keyboard">
+      <!-- <li class="letter">q</li> -->
+      <app-key *ngFor = "let item of firstLine" [letter] = "item" [simulateHover] = "CombinedObsObj[item]" [classn] = "'letter'" [reset] = "reset"></app-key>
+      <li class="capslock"></li>
+      <app-key *ngFor = "let item of secondLine" [letter] = "item" [simulateHover] = "CombinedObsObj[item]" [classn] = "'letter'" [reset] = "reset"></app-key>
+      <app-key [classn]="'right-shift lastitem'" [letter] = "'backspace'" [simulateHover] = "CombinedObsObj['backspace']" [reset] = "reset"></app-key>
+      <li class="left-shift"></li>
+      <app-key *ngFor = "let item of thirdLine" [simulateHover] = "CombinedObsObj[item]" [letter] = "item" [classn] = "'letter'" [reset] = "reset"></app-key>
+      <app-key [classn]="'right-shift lastitem'" [letter] = "'space'" [simulateHover] = "CombinedObsObj['space']"  [reset] = "reset"></app-key>
+      <app-key [classn]="'right-shift lastitem'" [letter] = "'return'" [simulateHover] = "CombinedObsObj['return']" [reset] = "reset"></app-key>
+  </ul>
+</div>

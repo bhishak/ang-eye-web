@@ -1,1 +1,9 @@
-<p>home works!</p>
+
+<div class="row mt-3">
+  <div *ngFor = "let item of cardData" class="col-sm-6">
+    <div>
+      <app-card [config] = "item">
+      </app-card>
+    </div>
+  </div>
+</div>
