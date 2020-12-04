@@ -80,6 +80,7 @@ export class KeyComponent implements OnInit, OnDestroy, AfterViewInit {
   resetTimes() {
     this.currcount = 0;
     this.renderer.setStyle(this.keyPosition.nativeElement, 'background', `rgba(255,0,0,0`);
+    // this.keyPositionValues = this.keyPosition.nativeElement.getBoundingClientRect();
   }
 
 }

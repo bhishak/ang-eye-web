@@ -16,14 +16,15 @@ export class KeyboardComponent implements OnInit, AfterViewInit {
   @ViewChild('allkey') private allkey: ElementRef;
   @HostListener('mousemove', ['$event']) onMouseMove(event) {
     // console.log(event.clientX, event.clientY);
-    // this.keyboardService.inputxy(event.clientX, event.clientY);
+    this.keyboardService.inputxy(event.clientX, event.clientY);
   }
   @HostListener('window:resize', ['$event'])
   onResize(event) {
-    if (this.topleftkey.nativeElement) {
+    if (this.allkey.nativeElement) {
       this.resizeWindow();
     }
   }
+  suggestions: any = [];
 
   valuesObject = { left: 0, right: 0, top: 0, bottom: 0 }
   firstLine = ['q','w','e','r','t','y','u','i','o','p']
@@ -36,7 +37,6 @@ export class KeyboardComponent implements OnInit, AfterViewInit {
   combinedArr = [...this.firstLine, ...this.secondLine, ...this.thirdLine, ... this.extras];
 
   click(key: string) {
-    console.log(key);
     if (key === 'space') {
       this.stringa = this.stringa + ' ';
     } else if (key === 'backspace') {
@@ -48,6 +48,42 @@ export class KeyboardComponent implements OnInit, AfterViewInit {
     } else {
       this.stringa = this.stringa + key;
     }
+    this.keyboardService.getSuggestions(this.stringa).subscribe((res: any) => {
+      console.log(res);
+      if (res.length === 0 ) {
+        this.suggestions = [' ',' ',' '];
+      } else if (res.length === 1) {
+        this.suggestions = [res[0], ' ', ' '];
+      } else if (res.length === 2) {
+        this.suggestions = [res[0], res[1], ' '];
+      } else {
+        this.suggestions = [res[0], res[1], res[2]]
+      }
+    });
+    this.reset.next(true);
+  }
+
+  clickSuggestion(key: string) {
+    if (this.stringa === '', this.stringa.endsWith(' ')) {
+      this.stringa = this.stringa + `${key} `;
+    } else {
+      const words = this.stringa.split(' ');
+      words.pop();
+      const lastwords = words.join(' ');
+      this.stringa = lastwords + ` ${key} `;
+    }
+    this.keyboardService.getSuggestions(this.stringa).subscribe((res: any) => {
+      console.log(res);
+      if (res.length === 0 ) {
+        this.suggestions = ['','',''];
+      } else if (res.length === 1) {
+        this.suggestions = [res[0], ' ', ' '];
+      } else if (res.length === 2) {
+        this.suggestions = [res[0], res[1], ' '];
+      } else {
+        this.suggestions = [res[0], res[1], res[2]]
+      }
+    });
     this.reset.next(true);
   }
 
@@ -103,10 +139,15 @@ export class KeyboardComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    this.keyboardService.getSuggestions(this.stringa).subscribe((res) => {
+      console.log(res);
+      this.suggestions = res;
+    });
     this.resizeWindow();
     this.keyboardService.getPointerSub().subscribe((val) => {
       if (val) {
-        let positionCursor = this.findCursorPosition(val.x, val.y);
+        // let positionCursor = this.findCursorPosition(val.x, val.y);
+        let positionCursor = val;
         this.renderer.setStyle(this.pointer.nativeElement, 'top', `${positionCursor.y}px`);
         this.renderer.setStyle(this.pointer.nativeElement, 'left', `${positionCursor.x}px`);
         this.keyboardPointer.next(positionCursor);

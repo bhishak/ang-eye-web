@@ -3,9 +3,7 @@
   <textarea id="write" rows="6" cols="10">
     {{stringa}}
   </textarea>
-      <app-key [classn] = "'right-shift'" (clicka) = "click($event)" [letter] = "'press'"  [reset] = "reset" [pixelInfo] = "keyboardPointer"></app-key>
-      <app-key  [classn]="'right-shift'" (clicka) = "click($event)" [letter] = "'pain'"  [reset] = "reset" [pixelInfo] = "keyboardPointer"></app-key>
-      <app-key [classn]="'right-shift'" (clicka) = "click($event)" [letter] = "'p'"  [reset] = "reset" [pixelInfo] = "keyboardPointer"></app-key>
+      <app-key *ngFor = "let item of suggestions" [classn] = "'right-shift'" (clicka) = "clickSuggestion($event)" [letter] = "item"  [reset] = "reset" [pixelInfo] = "keyboardPointer"></app-key>
   <ul id="keyboard">
       <!-- <li class="letter">q</li> -->
       <app-key (clicka) = "click($event)" *ngFor = "let item of firstLine" [letter] = "item" [classn] = "'letter'" [reset] = "reset" [pixelInfo] = "keyboardPointer"></app-key>
