@@ -6,7 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-
+  cardData = [
+    { text: 'Sample Text', title: 'Hi' },
+    { text: 'Sample Text', title: 'Hi' },
+    { text: 'Sample Text', title: 'Hi' },
+    { text: 'Sample Text', title: 'Hi' },
+    { text: 'Sample Text', title: 'Hi' },
+    { text: 'Sample Text', title: 'Hi' },
+  ]
   constructor() { }
 
   ngOnInit() {
