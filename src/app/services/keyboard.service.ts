@@ -2,6 +2,7 @@ import { Subject, Observable } from 'rxjs';
 import { HostListener, Injectable } from '@angular/core';
 import { throttle, throttleTime } from 'rxjs/operators';
 import {io} from 'socket.io-client/build/index';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,16 @@ export class KeyboardService {
   socket:any;
 
   inputxy(x: number, y: number) {
-    this.pointerSub.next({ x, y });
+    this.pointerSub.next({ x, y }); 
+  }
+
+  getSuggestions(sentence: string) {
+    const queryParams = new HttpParams()
+    .set('sentence', sentence);
+
+    return this.httpService.get('http://localhost:5000', {
+      params: queryParams
+    });
   }
 
   startSocketClient() {
@@ -32,6 +42,6 @@ export class KeyboardService {
     );
   }
 
-  constructor() {
+  constructor(private httpService: HttpClient) {
   }
 }
