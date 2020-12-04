@@ -1,0 +1,21 @@
+<div #allkey id="container">
+  <div #pointer class="square-pointer"></div>
+  <textarea id="write" rows="6" cols="10">
+    {{stringa}}
+  </textarea>
+      <app-key [classn] = "'right-shift'" (clicka) = "click($event)" [letter] = "'press'"  [reset] = "reset" [pixelInfo] = "keyboardPointer"></app-key>
+      <app-key  [classn]="'right-shift'" (clicka) = "click($event)" [letter] = "'pain'"  [reset] = "reset" [pixelInfo] = "keyboardPointer"></app-key>
+      <app-key [classn]="'right-shift'" (clicka) = "click($event)" [letter] = "'p'"  [reset] = "reset" [pixelInfo] = "keyboardPointer"></app-key>
+  <ul id="keyboard">
+      <!-- <li class="letter">q</li> -->
+      <app-key (clicka) = "click($event)" *ngFor = "let item of firstLine" [letter] = "item" [classn] = "'letter'" [reset] = "reset" [pixelInfo] = "keyboardPointer"></app-key>
+      <!-- <li class="capslock lastitem"></li> -->
+      <span #rightkey><app-key [classn]="'right-shift lastitem'" (clicka) = "click($event)" [letter] = "'backspace'" [reset] = "reset" [pixelInfo] = "keyboardPointer"></app-key></span>
+      <li class="left-shift"></li>
+      <app-key *ngFor = "let item of secondLine" (clicka) = "click($event)" [letter] = "item"  [classn] = "'letter'" [reset] = "reset" [pixelInfo] = "keyboardPointer"></app-key>
+      <app-key [classn]="'right-shift lastitem'" (clicka) = "click($event)" [letter] = "'space'"   [reset] = "reset" [pixelInfo] = "keyboardPointer"></app-key>
+      <span><app-key [classn]="'right-shift lastitem'" (clicka) = "click($event)" [letter] = "'return'"  [reset] = "reset" [pixelInfo] = "keyboardPointer"></app-key></span>
+      <app-key *ngFor = "let item of thirdLine" (clicka) = "click($event)"  [letter] = "item" [classn] = "'letter'" [reset] = "reset" [pixelInfo] = "keyboardPointer"></app-key>
+      <span #bottomkey><app-key (clicka) = "click($event)"  [letter] = "'m'" [classn] = "'letter'" [reset] = "reset" [pixelInfo] = "keyboardPointer"></app-key></span>
+  </ul>
+</div>
