@@ -1,1 +1,2 @@
-<li [class]="classn">{{ letter }}</li>
+<!-- <div class="tooltip"> -->
+<li #key (click) = "emitClick(true)" [class]="classn">{{ letter }}</li>
