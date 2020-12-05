@@ -19,7 +19,7 @@ export class KeyboardService {
     const queryParams = new HttpParams()
     .set('sentence', sentence);
 
-    return this.httpService.get('http://localhost:5000', {
+    return this.httpService.get('http://localhost:7000/autosuggest', {
       params: queryParams
     });
   }
@@ -39,9 +39,17 @@ export class KeyboardService {
   startHttpService() {
     setInterval(() => {
       this.httpService.get('http://localhost:7000/keyboard').subscribe(
-        (res) => {
+        (res:any) => {
           console.log(res);
-          // this.inputxy(res.data.x, res.data.y);
+          if(!res || res.length < 2)
+          {
+              return;
+          }
+          const xvar = res[0]
+          const ybar = res[1]
+          const xint = parseInt(res[0],10);
+          const yint = parseInt(res[1],10);
+          this.inputxy(xint, yint);
         }
       )
     }, 100)
