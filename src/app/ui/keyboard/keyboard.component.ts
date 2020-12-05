@@ -153,7 +153,7 @@ export class KeyboardComponent implements OnInit, AfterViewInit {
         this.keyboardPointer.next(positionCursor);
       }
     });
-    this.keyboardService.startSocketClient();
+    this.keyboardService.startReceivingData();
   }
 
 }
