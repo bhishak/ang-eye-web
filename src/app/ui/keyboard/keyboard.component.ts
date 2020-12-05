@@ -16,7 +16,7 @@ export class KeyboardComponent implements OnInit, AfterViewInit {
   @ViewChild('allkey') private allkey: ElementRef;
   @HostListener('mousemove', ['$event']) onMouseMove(event) {
     // console.log(event.clientX, event.clientY);
-    this.keyboardService.inputxy(event.clientX, event.clientY);
+    // this.keyboardService.inputxy(event.clientX, event.clientY);
   }
   @HostListener('window:resize', ['$event'])
   onResize(event) {
