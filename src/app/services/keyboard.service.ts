@@ -2,6 +2,7 @@ import { Subject, Observable } from 'rxjs';
 import { HostListener, Injectable } from '@angular/core';
 import { throttle, throttleTime } from 'rxjs/operators';
 import {io} from 'socket.io-client/build/index';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -11,15 +12,39 @@ export class KeyboardService {
   socket:any;
 
   inputxy(x: number, y: number) {
-    this.pointerSub.next({ x, y });
+    this.pointerSub.next({ x, y }); 
   }
 
-  startSocketClient() {
-    this.socket = io('http://localhost:8080');
+  getSuggestions(sentence: string) {
+    const queryParams = new HttpParams()
+    .set('sentence', sentence);
 
-    this.socket.on('data', (res) => {
-      this.inputxy(res.data.x, res.data.y);
+    return this.httpService.get('http://localhost:5000', {
+      params: queryParams
     });
+  }
+
+  startReceivingData() {
+    this.startHttpService();
+  }
+
+  // startSocketClient() {
+  //   this.socket = io('http://localhost:8080');
+
+  //   this.socket.on('data', (res) => {
+  //     this.inputxy(res.data.x, res.data.y);
+  //   });
+  // }
+
+  startHttpService() {
+    setInterval(() => {
+      this.httpService.get('http://localhost:7000/keyboard').subscribe(
+        (res) => {
+          console.log(res);
+          // this.inputxy(res.data.x, res.data.y);
+        }
+      )
+    }, 100)
   }
 
   getPointerSubNonThrottle() {
@@ -32,6 +57,6 @@ export class KeyboardService {
     );
   }
 
-  constructor() {
+  constructor(private httpService: HttpClient) {
   }
 }
