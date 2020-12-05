@@ -11,7 +11,7 @@ import { filter } from 'rxjs/operators';
   styleUrls: ['./key.component.scss']
 })
 export class KeyComponent implements OnInit, OnDestroy, AfterViewInit {
-  clickTimes = 20;
+  clickTimes = 10;
   currcount = 0;
   @ViewChild('key') private keyPosition: ElementRef;
   @Input() letter: string;
@@ -66,9 +66,9 @@ export class KeyComponent implements OnInit, OnDestroy, AfterViewInit {
 
   emitClick(isMouseClick: boolean) {
     // this.text = JSON.stringify(this.keyPosition.nativeElement.getBoundingClientRect());
-    if (!isMouseClick) {
-      this.clicka.emit(this.letter);
-    }
+    // if (!isMouseClick) {
+     this.clicka.emit(this.letter);
+    // }
   }
 
   ngOnDestroy() {
