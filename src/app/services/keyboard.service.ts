@@ -24,12 +24,27 @@ export class KeyboardService {
     });
   }
 
-  startSocketClient() {
-    this.socket = io('http://localhost:8080');
+  startReceivingData() {
+    this.startHttpService();
+  }
 
-    this.socket.on('data', (res) => {
-      this.inputxy(res.data.x, res.data.y);
-    });
+  // startSocketClient() {
+  //   this.socket = io('http://localhost:8080');
+
+  //   this.socket.on('data', (res) => {
+  //     this.inputxy(res.data.x, res.data.y);
+  //   });
+  // }
+
+  startHttpService() {
+    setInterval(() => {
+      this.httpService.get('http://localhost:7000/keyboard').subscribe(
+        (res) => {
+          console.log(res);
+          // this.inputxy(res.data.x, res.data.y);
+        }
+      )
+    }, 100)
   }
 
   getPointerSubNonThrottle() {
